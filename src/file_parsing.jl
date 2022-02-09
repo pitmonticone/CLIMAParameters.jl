@@ -1,6 +1,5 @@
 using TOML
 
-
 function parse_toml_file(filepath)
     return TOML.parsefile(filepath)
 end
@@ -48,13 +47,22 @@ function create_param_dict(full_parameter_dict, dict_type)
 end
 
 function create_parameter_dict(path_to_override, path_to_default; dict_type="alias")
-
-    #create the name/alias => value dictionaries
-    override_param_dict = create_param_dict(parse_toml_file(path_to_override), dict_type)
-    default_param_dict = create_param_dict(parse_toml_file(path_to_default), dict_type)
-
-    #overrides the defaults where they clash
-    return merge_override_default_values(override_param_dict, default_param_dict)    
+    #if there isn't  an override file take defaults
+    if isnothing(path_to_override)
+        return create_param_dict(parse_toml_file(path_to_default), dict_type)
+    else
+        try 
+            override_param_dict = create_param_dict(parse_toml_file(path_to_override), dict_type)
+            default_param_dict = create_param_dict(parse_toml_file(path_to_default), dict_type)
+        
+            #overrides the defaults where they clash
+            return merge_override_default_values(override_param_dict, default_param_dict)
+        catch
+            @warn("Error in building from parameter file: ", path_to_override,"instead, created using defaults from CLIMAParameters...")
+            return create_param_dict(parse_toml_file(path_to_default), dict_type)
+        end
+    end
+        
 end
 
 function create_parameter_dict(path_to_override; dict_type="alias")
@@ -63,6 +71,13 @@ function create_parameter_dict(path_to_override; dict_type="alias")
     return create_parameter_dict(
         path_to_override,
         path_to_default,
+        dict_type=dict_type
+    )
+end
+
+function create_parameter_dict(; dict_type="alias")
+    return create_parameter_dict(
+        nothing,
         dict_type=dict_type
     )
 end
