@@ -1,18 +1,271 @@
+[precipitation_timescale]
+alias = "τ_precip"
+value = 1000
+type = "float"
+
+[specific_humidity_precipitation_threshold]
+alias = "qc_0"
+value = 0.005
+type = "float"
+
+[supersaturation_precipitation_threshold]
+alias = "S_0"
+value = 0.02
+type = "float"
+
+[rain_drop_drag_coefficient]
+alias = "C_drag"
+value = 0.55
+type = "float"
+
+[thermal_conductivity_of_air ]
+alias = "K_therm"
+value = 0.024
+type = "float"
+
+[diffusivity_of_water_vapor]
+alias = "D_vapor"
+value = 0.0000226
+type = "float"
+
+[kinematic_viscosity_of_air]
+alias = "ν_air"
+value = 0.000016
+type = "float"
+
+[condensation_evaporation_timescale]
+alias = "τ_cond_evap"
+value = 10
+type = "float"
+
+[sublimation_deposition_timescale]
+alias = "τ_sub_dep"
+value = 10
+type = "float"
+
+[ice_snow_threshold_radius]
+alias = "r_ice_snow"
+value = 6.25e-5
+type = "float"
+
+[cloud_ice_size_distribution_coefficient_n0]
+alias = "n0_ice"
+value = 2e7
+type = "float"
+
+[cloud_ice_crystals_length_scale]
+alias = "r0_ice"
+value = 0.00001
+type = "float"
+
+[cloud_ice_mass_size_relation_coefficient_me]
+alias = "me_ice"
+value = 3
+type = "float"
+
+[cloud_ice_mass_size_relation_coefficient_chim]
+alias = "χm_ice"
+value = 1
+type = "float"
+
+[cloud_ice_mass_size_relation_coefficient_delm]
+alias = "Δm_ice"
+value = 0
+type = "float"
+
+[cloud_liquid_water_specific_humidity_autoconversion_threshold]
+alias = "q_liq_threshold"
+value = 0.0005
+type = "float"
+
+[rain_autoconversion_timescale]
+alias = "τ_acnv_rai"
+value = 1000
+type = "float"
+
+[rain_ventillation_coefficient_a]
+alias = "a_vent_rai"
+value = 1.5
+type = "float"
+
+[rain_ventillation_coefficient_b ]
+alias = "b_vent_rai"
+value = 0.53
+type = "float"
+
+[rain_drop_size_distribution_coefficient_n0]
+alias = "n0_rai"
+value = 1.6e7
+type = "float"
+
+[rain_drop_length_scale]
+alias = "r0_rai"
+value = 0.001
+type = "float"
+
+[rain_mass_size_relation_coefficient_me]
+alias = "me_rai"
+value = 3
+type = "float"
+
+[rain_cross_section_size_relation_coefficient_ae]
+alias = "ae_rai"
+value = 2
+type = "float"
+
+[rain_terminal_velocity_size_relation_coefficient_ve]
+alias = "ve_rai"
+value = 0.5
+type = "float"
+
+[rain_mass_size_relation_coefficient_chim]
+alias = "χm_rai"
+value = 1
+type = "float"
+
+[rain_mass_size_relation_coefficient_delm]
+alias = "Δm_rai"
+value = 0
+type = "float"
+
+[rain_cross_section_size_relation_coefficient_chia]
+alias = "χa_rai"
+value = 1
+type = "float"
+
+[rain_cross_section_size_relation_coefficient_dela]
+alias = "Δa_rai"
+value = 0
+type = "float"
+
+[rain_terminal_velocity_size_relation_coefficient_chiv]
+alias = "χv_rai"
+value = 1
+type = "float"
+
+[rain_terminal_velocity_size_relation_coefficient_delv]
+alias = "Δv_rai"
+value = 0
+type = "float"
+
+[cloud_ice_specific_humidity_autoconversion_threshold]
+alias = "q_ice_threshold"
+value = 0.000001
+type = "float"
+
+[snow_autoconversion_timescale]
+alias = "τ_acnv_sno"
+value = 100
+type = "float"
+
+[snow_ventillation_coefficient_a]
+alias = "a_vent_sno"
+value = 0.65
+type = "float"
+
+[snow_ventillation_coefficient_b]
+alias = "b_vent_sno"
+value = 0.44
+type = "float"
+
+[snow_flake_size_distribution_coefficient_mu]
+alias = "μ_sno"
+value = 4.36e9
+type = "float"
+
+[snow_flake_size_distribution_coefficient_nu]
+alias = "ν_sno"
+value = 0.63
+type = "float"
+
+[snow_flake_length_scale]
+alias = "r0_sno"
+value = 0.001
+type = "float"
+
+[snow_mass_size_relation_coefficient_me]
+alias = "me_sno"
+value = 2
+type = "float"
+
+[snow_cross_section_size_relation_coefficient]
+alias = "ae_sno"
+value = 2
+type = "float"
+
+[snow_terminal_velocity_size_relation_coefficient]
+alias = "ve_sno"
+value = 0.25
+type = "float"
+
+[snow_mass_size_relation_coefficient_chim]
+alias = "χm_sno"
+value = 1
+type = "float"
+
+[snow_mass_size_relation_coefficient_delm]
+alias = "Δm_sno"
+value = 0
+type = "float"
+
+[snow_cross_section_size_relation_coefficient_chia]
+alias = "χa_sno"
+value = 1
+type = "float"
+
+[snow_cross_section_size_relation_coefficient_dela]
+alias = "Δa_sno"
+value = 0
+type = "float"
+
+[snow_terminal_velocity_size_relation_coefficient_chiv]
+alias = "χv_sno"
+value = 1
+type = "float"
+
+[snow_terminal_velocity_size_relation_coefficient_delv]
+alias = "Δv_sno"
+value = 0
+type = "float"
+
+[cloud_liquid_rain_collision_efficiency]
+alias = "E_liq_rai"
+value = 0.8
+type = "float"
+
+[cloud_liquid_snow_collision_efficiency]
+alias = "E_liq_sno"
+value = 0.1
+type = "float"
+
+[cloud_ice_rain_collision_efficiency]
+alias = "E_ice_rai"
+value = 1
+type = "float"
+
+[cloud_ice_snow_collision_efficiency]
+alias = "E_ice_sno"
+value = 0.1
+type = "float"
+
+[rain_snow_collision_efficiency]
+alias = "E_rai_sno"
+value = 1
+type = "float"
+
+
+
+
+
+
+
 # Initial planet_parameters toml file
 
-#this list requires the following thermodynamic parameters
-#to be defined in thermodynamics:
-#gas_constant_dry_air                          = gas_constant/molar_mass_dry_air
-#isobaric_specific_heat_dry_air                = gas_constant_dry_air / adiabatic_exponent_dry_air
-#isochoric_specific_heat_dry_air               = isobaric_specific_heat_dry_air / gas_constant_dry_air
-#molar_mass_ratio_dry_air_water                = molar_mass_dry_air / molar_mass_water
-#gas_constant_vapor                            = gas_constant / molar_mass_water
-#isochoric_specific_heat_vapor                 = isobaric_specific_heat_vapor - gas_constant_vapor
-#isochoric_specific_heat_liquid                = isobaric_specific_heat_liquid
-#isochoric_specific_heat_ice                   = isobaric_specific_heat_ice
-#latent_heat_fusion_at_reference               = latent_heat_sublimation_at_reference - latent_heat_vaporization_at_reference
-#specific_internal_energy_vapor_at_reference   = latent_heat_vaporization_at_reference - gas_constant_vapor * thermodynamic_temperature_reference
-#specific_internal_energy_ice_at_reference     = latent_heat_fusion_at_reference
+
+
+
+
+
 
 [molar_mass_dry_air] 
 alias = "molmass_dryair"
