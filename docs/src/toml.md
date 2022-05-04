@@ -67,12 +67,12 @@ Here, the `value` field has been overwritten by the experiment value
 ### Loading from file
 We provide the following methods to load parameters from file
 ```julia
-create_parameter_struct(override_filepath, default_filepath; dict_type="alias",value_type=Float64)
-create_parameter_struct(override_filepath ; dict_type="alias",value_type=Float64) 
-create_parameter_struct(; dict_type="name",value_type=Float64) 
+create_parameter_struct(override_filepath, default_filepath; dict_type="alias",float_type=Float64)
+create_parameter_struct(override_filepath ; dict_type="alias",float_type=Float64) 
+create_parameter_struct(; dict_type="name",float_type=Float64) 
 ```
 - The `dict_type = "name"` or `"alias"` determines the method of lookup of parameters (by `name` or by `alias` attributes).
-- The  `value_type` defines the requested precision of the returned parameters (e.g. `Float64` or `Float32`)
+- The  `float_type` defines the requested precision of the returned parameters (e.g. `Float64` or `Float32`)
 
 Typical usage involves passing the local parameter file
 ```julia

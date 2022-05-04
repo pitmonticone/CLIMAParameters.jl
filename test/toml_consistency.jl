@@ -117,7 +117,7 @@ logfilepath3 = joinpath(@__DIR__, "log_file_test_3.toml")
         # parameter struct of type Float32
         param_set_f32 = CP.create_parameter_struct(path_to_array_params,
                                                    dict_type="name",
-                                                   value_type=Float32)
+                                                   float_type=Float32)
         
         # true parameter values (used to check if values are correctly read from
         # the toml file)
@@ -141,7 +141,7 @@ logfilepath3 = joinpath(@__DIR__, "log_file_test_3.toml")
             @test param == true_params[i]
             # Check if the parameter is of the correct type. It should have
             # the same type as the ParamDict, which is specified by the
-            # `value_type`` argument to `create_parameter_struct`.
+            # `float_type`` argument to `create_parameter_struct`.
             @test eltype(param) == Float64
             
             param_f32 = CP.get_parameter_values!(param_set_f32, param_names[i], mod)
