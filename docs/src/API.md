@@ -62,6 +62,8 @@ Planet.entropy_dry_air
 Planet.entropy_reference_temperature
 Planet.ρ_ocean
 Planet.cp_ocean
+Planet.gravitational_constant
+Planet.planet_mass
 Planet.planet_radius
 Planet.day
 Planet.Omega

@@ -40,6 +40,8 @@ export molmass_dryair,
     entropy_reference_temperature,
     ρ_ocean,
     cp_ocean,
+    gravitational_constant,
+    planet_mass,
     planet_radius,
     day,
     Omega,
@@ -143,6 +145,10 @@ function ρ_ocean end
 function cp_ocean end
 
 # Planetary parameters
+""" Universal gravitational constant (m``^3`` kg``^-1`` s``^-2``) """
+function gravitational_constant end
+""" Planetary mass (kg) """
+function planet_mass end
 """ Mean planetary radius (m) """
 function planet_radius end
 """ Length of day (s) """
