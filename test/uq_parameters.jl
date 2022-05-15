@@ -100,12 +100,15 @@ const EKP = EnsembleKalmanProcesses
     param_list = ["uq_param_2", "uq_param_4", "uq_param_5"]
     pd = CP.get_parameter_distribution(param_dict, param_list)
 
-    # Save the parameter dictionary and re-load it. 
-    logfile_path = joinpath(@__DIR__,"log_file_test_uq.toml")
-    CP.write_log_file(param_dict, logfile_path)
+    # Save the parameter dictionary and re-load it.
+    param_dict_from_log = mktempdir(@__DIR__) do path
+        logfile_path = joinpath(path, "log_file_test_uq.toml")
+        CP.write_log_file(param_dict, logfile_path)
 
-    # Read in log file as new parameter file and rerun test.
-    param_dict_from_log = CP.read_parameters(logfile_path)
+        # Read in log file as new parameter file and rerun test.
+        CP.read_parameters(logfile_path)
+    end
+
     for param_name in uq_param_names
         pd = CP.get_parameter_distribution(param_dict_from_log, param_name)
         @test get_distribution(pd) == get_distribution(target_map[param_name])
@@ -129,7 +132,7 @@ end
     # Seed for pseudo-random number generator
     rng_seed = 42
     rng = Random.MersenneTwister(rng_seed)
-    
+
     # Construct the parameter distribution
     pd = CP.get_parameter_distribution(param_dict, uq_param_names)
     slices = batch(pd) # Will need this later to extract parameters
@@ -139,7 +142,7 @@ end
     # ------
 
     # Generate symthetic observations y_obs by evaluating a (completely
-    # contrived) forward map G(u) (where u are the parameters) with the 
+    # contrived) forward map G(u) (where u are the parameters) with the
     # the true parameter values u* (which we pretend to know for the
     # purpose of this example) and adding random observational noise η
 
@@ -159,7 +162,7 @@ end
              value_of["uq_param_1"][1]], 4, 1)
         y = (A3 * value_of["uq_param_3"] + A5 * value_of["uq_param_5"]
              + norm(value_of["uq_param_4"]) * A4)
-        return dropdims(y, dims=2) 
+        return dropdims(y, dims=2)
     end
 
     # True parameter values (in constrained space)
@@ -187,57 +190,58 @@ end
     N_ens = 40 # number of ensemble members
     N_iter = 1 # number of iterations
 
-    # Generate and save initial paramter ensemble 
+    # Generate and save initial paramter ensemble
     initial_ensemble = EKP.construct_initial_ensemble(rng, pd, N_ens)
-    save_path = joinpath(@__DIR__, "test_output")
-    save_file = "test_parameters.toml"
-    cov_init = cov(initial_ensemble, dims=2)
-    CP.save_parameter_ensemble(
-        initial_ensemble,
-        pd,
-        param_dict,
-        save_path,
-        save_file,
-        0 # We consider the initial ensemble to be the 0th iteration
-    )
-
-    # Instantiate an ensemble Kalman process
-    eki = EKP.EnsembleKalmanProcess(
-        initial_ensemble,
-        y_obs,
-        Γy,
-        Inversion(),
-        rng=rng)
-
-    # EKS iterations
-    for i in 1:N_iter
-        params_i = get_u_final(eki)
-        G_n = [G(params_i[:, member_idx]) for member_idx in 1:N_ens]
-        G_ens = hcat(G_n...)
-        EKP.update_ensemble!(eki, G_ens)
-
-        # Save updated parameter ensemble
+    mktempdir(@__DIR__) do save_path
+        save_file = "test_parameters.toml"
+        cov_init = cov(initial_ensemble, dims=2)
         CP.save_parameter_ensemble(
-            EKP.get_u_final(eki),
+            initial_ensemble,
             pd,
             param_dict,
             save_path,
             save_file,
-            i
+            0 # We consider the initial ensemble to be the 0th iteration
         )
-    end
 
-    # Check if all parameter files have been created (we expect there to be
-    # one for each iteration and ensemble member)
-    @test isdir(joinpath(save_path, "iteration_00"))
-    @test isdir(joinpath(save_path, "iteration_01"))
-    subdir_names = CP.generate_subdir_names(N_ens)
-    for i in 1:N_ens
-        subdir_0 = joinpath(save_path, "iteration_00", subdir_names[i])
-        subdir_1 = joinpath(save_path, "iteration_01", subdir_names[i])
-        @test isdir(subdir_0)
-        @test isfile(joinpath(subdir_0, save_file))
-        @test isdir(subdir_1)
-        @test isfile(joinpath(subdir_1, save_file))
+        # Instantiate an ensemble Kalman process
+        eki = EKP.EnsembleKalmanProcess(
+            initial_ensemble,
+            y_obs,
+            Γy,
+            Inversion(),
+            rng=rng)
+
+        # EKS iterations
+        for i in 1:N_iter
+            params_i = get_u_final(eki)
+            G_n = [G(params_i[:, member_idx]) for member_idx in 1:N_ens]
+            G_ens = hcat(G_n...)
+            EKP.update_ensemble!(eki, G_ens)
+
+            # Save updated parameter ensemble
+            CP.save_parameter_ensemble(
+                EKP.get_u_final(eki),
+                pd,
+                param_dict,
+                save_path,
+                save_file,
+                i
+            )
+        end
+
+        # Check if all parameter files have been created (we expect there to be
+        # one for each iteration and ensemble member)
+        @test isdir(joinpath(save_path, "iteration_00"))
+        @test isdir(joinpath(save_path, "iteration_01"))
+        subdir_names = CP.generate_subdir_names(N_ens)
+        for i in 1:N_ens
+            subdir_0 = joinpath(save_path, "iteration_00", subdir_names[i])
+            subdir_1 = joinpath(save_path, "iteration_01", subdir_names[i])
+            @test isdir(subdir_0)
+            @test isfile(joinpath(subdir_0, save_file))
+            @test isdir(subdir_1)
+            @test isfile(joinpath(subdir_1, save_file))
+        end
     end
 end
