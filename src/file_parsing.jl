@@ -2,17 +2,10 @@ using TOML
 using DocStringExtensions
 
 export ParamDict
-export parse_toml_file,
-    get_parametric_type,
-    iterate_alias,
-    log_component!,
-    get_values,
+export float_type,
     get_parameter_values!,
     get_parameter_values,
-    check_override_parameter_usage,
-    write_log_file,
     log_parameter_information,
-    merge_override_default_values,
     create_parameter_struct
         
     
@@ -37,22 +30,12 @@ struct ParamDict{FT}
     "either a nothing, or a dictionary representing an override parameter TOML file"
     override_dict::Union{Nothing,Dict}
 end
-
 """
-    parse_toml_file(filepath)
-
-use a TOML parser to read TOML file at `filepath`.
-"""
-function parse_toml_file(filepath)
-    return TOML.parsefile(filepath)
-end
-
-"""
-    get_parametric_type(::ParamDict{FT}) where {FT}
+    float_type(::ParamDict{FT}) where {FT}
 
 obtains the type `FT` from `ParamDict{FT}`.
 """
-get_parametric_type(::ParamDict{FT}) where {FT} = FT
+float_type(::ParamDict{FT}) where {FT} = FT
 
 """
     iterate_alias(d::Dict)
@@ -140,7 +123,7 @@ end
 gets the `value` of the named parameters.
 """
 get_values(param_set::ParamDict{FT}, names) where {FT} =
-    get_values(param_set.data, names, param_set.dict_type, get_parametric_type(param_set))
+    get_values(param_set.data, names, param_set.dict_type, float_type(param_set))
 
 function get_values(data::Dict, names, dict_type, ret_values_type)
     
@@ -279,17 +262,17 @@ Creates a `ParamDict{value_type}` struct, by reading and merging upto two TOML f
 function create_parameter_struct(path_to_override, path_to_default; dict_type="alias", value_type=Float64)
     #if there isn't  an override file take defaults
     if isnothing(path_to_override)
-        return ParamDict{value_type}(parse_toml_file(path_to_default), dict_type, nothing)
+        return ParamDict{value_type}(TOML.parsefile(path_to_default), dict_type, nothing)
     else
         try 
-            override_param_struct = ParamDict{value_type}(parse_toml_file(path_to_override), dict_type, parse_toml_file(path_to_override))
-            default_param_struct = ParamDict{value_type}(parse_toml_file(path_to_default), dict_type, nothing)
+            override_param_struct = ParamDict{value_type}(TOML.parsefile(path_to_override), dict_type, TOML.parsefile(path_to_override))
+            default_param_struct = ParamDict{value_type}(TOML.parsefile(path_to_default), dict_type, nothing)
         
             #overrides the defaults where they clash
             return merge_override_default_values(override_param_struct, default_param_struct)
         catch
             @warn("Error in building from parameter file: "*"\n " * path_to_override * " \n instead, created using defaults from CLIMAParameters...")
-            return ParamDict{value_type}(parse_toml_file(path_to_default), dict_type, nothing)
+            return ParamDict{value_type}(TOML.parsefile(path_to_default), dict_type, nothing)
         end
     end
         

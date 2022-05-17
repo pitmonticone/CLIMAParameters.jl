@@ -42,7 +42,7 @@ function ThermodynamicsParameters(parameter_struct)
     R_d = gas_constant / molmass_dryair
 
     return ThermodynamicsParameters{
-        CLIMAParameters.get_parametric_type(param_struct)}(...,R_d, gas_constant, molmass_dryair)
+        CLIMAParameters.float_type(param_struct)}(...,R_d, gas_constant, molmass_dryair)
 end
 ```
 
@@ -125,7 +125,7 @@ function CloudMicrophysicsParameters(
     ...
     
     return CloudMicrophysicsParameters{
-        CLIMAParameters.get_parametric_type(param_set), AMPS}(
+        CLIMAParameters.float_type(param_set), AMPS}(
             K_therm,
             ...     
             MPS,
