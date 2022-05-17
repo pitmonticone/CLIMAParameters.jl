@@ -260,7 +260,7 @@ end
 
 Creates a `ParamDict{FT}` struct, by reading and merging upto two TOML files with override information taking precedence over default information.
 """
-function create_parameter_struct(path_to_override, path_to_default, FT::Type{float_type}; dict_type="alias") where {float_type <: AbstractFloat}
+function create_parameter_struct(path_to_override, path_to_default, ::Type{FT}; dict_type="alias") where {FT <: AbstractFloat}
     #if there isn't  an override file take defaults
     if isnothing(path_to_override)
         return ParamDict{FT}(TOML.parsefile(path_to_default), dict_type, nothing)
@@ -285,7 +285,7 @@ end
 
 a single filepath is assumed to be the override file, defaults are obtained from the CLIMAParameters defaults list.
 """
-function create_parameter_struct(path_to_override, FT::Type{float_type}; dict_type="alias") where {float_type <: AbstractFloat}
+function create_parameter_struct(path_to_override, ::Type{FT}; dict_type="alias") where {FT <: AbstractFloat}
     path_to_default = joinpath(splitpath(pathof(CLIMAParameters))[1:end-1]...,"parameters.toml")
     return create_parameter_struct(
         path_to_override,
@@ -300,7 +300,7 @@ end
 
 when no filepath is provided, all parameters are created from CLIMAParameters defaults list.
 """
-function create_parameter_struct(FT::Type{float_type}; dict_type="alias") where {float_type <: AbstractFloat}
+function create_parameter_struct(::Type{FT}; dict_type="alias") where {FT <: AbstractFloat}
     return create_parameter_struct(
         nothing,
         dict_type=dict_type,
