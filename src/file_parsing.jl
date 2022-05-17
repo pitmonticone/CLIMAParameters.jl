@@ -8,8 +8,8 @@ export float_type,
     write_log_file,
     log_parameter_information,
     create_parameter_struct
-        
-    
+
+
 """
     ParamDict{FT}
 
@@ -113,7 +113,7 @@ function log_component!(data::Dict,names,component,dict_type)
                 end
             end
          end
-        
+
     end
 end
 
@@ -127,7 +127,7 @@ get_values(param_set::ParamDict{FT}, names) where {FT} =
     get_values(param_set.data, names, param_set.dict_type, float_type(param_set))
 
 function get_values(data::Dict, names, dict_type, ret_values_type)
-    
+
     ret_values = []
     if dict_type == "alias"
         for name in names
@@ -162,11 +162,11 @@ end
 """
 function get_parameter_values!(param_set::ParamDict{FT}, names, component; log_component=true) where {FT}
     names_vec = (typeof(names) <: AbstractVector) ? names : [names]
-    
+
     if log_component
         log_component!(param_set,names_vec,component)
     end
-    
+
     return (typeof(names) <: AbstractVector) ? get_values(param_set,names_vec) : get_values(param_set,names_vec)[1]
 end
 
@@ -181,7 +181,7 @@ get_parameter_values(param_set::ParamDict{FT}, names) where {FT} = get_parameter
     check_override_parameter_usage(param_set::ParamDict{FT},warn_else_error) where {FT}
 
 Checks if parameters in the ParamDict.override_dict have the key "used_in" (i.e. were these parameters used within the model run).
-Throws warnings in each where parameters are not used. Also throws an error if `warn_else_error` is not "warn"`. 
+Throws warnings in each where parameters are not used. Also throws an error if `warn_else_error` is not "warn"`.
 """
 function check_override_parameter_usage(param_set::ParamDict{FT},warn_else_error) where {FT}
     if !(isnothing(param_set.override_dict))
@@ -256,55 +256,28 @@ function merge_override_default_values(override_param_struct::ParamDict{FT},defa
 end
 
 """
-    create_parameter_struct(path_to_override, path_to_default, FT; dict_type="alias")
+    create_parameter_struct(FT;
+        override_file,
+        default_file,
+        dict_type="alias"
+    )
 
-Creates a `ParamDict{FT}` struct, by reading and merging upto two TOML files with override information taking precedence over default information.
+Creates a `ParamDict{FT}` struct, by reading and merging upto
+two TOML files with override information taking precedence over
+default information.
 """
-function create_parameter_struct(path_to_override, path_to_default, ::Type{FT}; dict_type="alias") where {FT <: AbstractFloat}
-    #if there isn't  an override file take defaults
-    if isnothing(path_to_override)
-        return ParamDict{FT}(TOML.parsefile(path_to_default), dict_type, nothing)
-    else
-        try 
-            override_param_struct = ParamDict{FT}(TOML.parsefile(path_to_override), dict_type, TOML.parsefile(path_to_override))
-            default_param_struct = ParamDict{FT}(TOML.parsefile(path_to_default), dict_type, nothing)
-        
-            #overrides the defaults where they clash
-            return merge_override_default_values(override_param_struct, default_param_struct)
-        catch
-            @warn("Error in building from parameter file: "*"\n " * path_to_override * " \n instead, created using defaults from CLIMAParameters...")
-            return ParamDict{FT}(TOML.parsefile(path_to_default), dict_type, nothing)
-        end
+function create_parameter_struct(::Type{FT};
+        override_file::Union{Nothing, String} = nothing,
+        default_file::String = joinpath(@__DIR__, "parameters.toml"),
+        dict_type="alias"
+    ) where {FT <: AbstractFloat}
+    if isnothing(override_file)
+        return ParamDict{FT}(TOML.parsefile(default_file), dict_type, nothing)
     end
-        
-end
+    override_param_struct = ParamDict{FT}(TOML.parsefile(override_file), dict_type, TOML.parsefile(override_file))
+    default_param_struct = ParamDict{FT}(TOML.parsefile(default_file), dict_type, nothing)
 
-
-"""
-    create_parameter_struct(path_to_override, FT; dict_type="alias")
-
-a single filepath is assumed to be the override file, defaults are obtained from the CLIMAParameters defaults list.
-"""
-function create_parameter_struct(path_to_override, ::Type{FT}; dict_type="alias") where {FT <: AbstractFloat}
-    path_to_default = joinpath(splitpath(pathof(CLIMAParameters))[1:end-1]...,"parameters.toml")
-    return create_parameter_struct(
-        path_to_override,
-        path_to_default,
-        dict_type=dict_type,
-        FT,
-    )
-end
-
-"""
-    create_parameter_struct(FT; dict_type="alias")
-
-when no filepath is provided, all parameters are created from CLIMAParameters defaults list.
-"""
-function create_parameter_struct(::Type{FT}; dict_type="alias") where {FT <: AbstractFloat}
-    return create_parameter_struct(
-        nothing,
-        dict_type=dict_type,
-        FT,
-    )
+    #overrides the defaults where they clash
+    return merge_override_default_values(override_param_struct, default_param_struct)
 end
 

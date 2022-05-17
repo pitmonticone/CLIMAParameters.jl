@@ -5,7 +5,7 @@ import CLIMAParameters
 const CP = CLIMAParameters
 
 # read parameters needed for tests
-full_parameter_set = CP.create_parameter_struct(Float64, dict_type="alias")
+full_parameter_set = CP.create_parameter_struct(Float64; dict_type="alias")
 
 const CPP = CP.Planet
 struct EarthParameterSet <: CP.AbstractEarthParameterSet end
@@ -77,7 +77,10 @@ logfilepath1 = joinpath(@__DIR__, "toml", "log_file_test_1.toml")
 
 
         #read in log file as new parameter file and rerun test.
-        full_parameter_set_from_log = CP.create_parameter_struct(logfilepath1,Float64,dict_type = "alias")
+        full_parameter_set_from_log = CP.create_parameter_struct(Float64;
+            override_file = logfilepath1,
+            dict_type = "alias"
+        )
         k_found=[0]
         for (k, v) in full_parameter_set_from_log #iterates over data (by alias)
             for mod in module_names
@@ -107,17 +110,16 @@ logfilepath1 = joinpath(@__DIR__, "toml", "log_file_test_1.toml")
         # Create parameter structs consisting of the parameters contained in the
         # default parameter file ("parameters.toml") and additional (array valued)
         # parameters ("array_parameters.toml").
-#        path_to_array_params = joinpath(splitpath(pathof(CP))[1:end-2]...,"test/array_parameters.toml")
         path_to_array_params = joinpath(@__DIR__,"toml","array_parameters.toml")
         # parameter struct of type Float64 (default)
-        param_set = CP.create_parameter_struct(path_to_array_params,
-                                               Float64,
-                                               dict_type="name")
+        param_set = CP.create_parameter_struct(Float64;
+            override_file=path_to_array_params,
+            dict_type="name")
         # parameter struct of type Float32
-        param_set_f32 = CP.create_parameter_struct(path_to_array_params,
-                                                   Float32,
-                                                   dict_type="name")
-        
+        param_set_f32 = CP.create_parameter_struct(Float32;
+            override_file=path_to_array_params,
+            dict_type="name")
+
         # true parameter values (used to check if values are correctly read from
         # the toml file)
         true_param_1 = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
@@ -163,7 +165,7 @@ logfilepath1 = joinpath(@__DIR__, "toml", "log_file_test_1.toml")
         # `param_set` and `full_param_set` contain different values for the
         # `gravitational_acceleration` parameter. The merged parameter set should
         # contain the value from `param_set`.
-        full_param_set = CP.create_parameter_struct(Float64,dict_type="name")
+        full_param_set = CP.create_parameter_struct(Float64;dict_type="name")
         merged_param_set = CP.merge_override_default_values(
             param_set,
             full_param_set,
@@ -175,7 +177,10 @@ logfilepath1 = joinpath(@__DIR__, "toml", "log_file_test_1.toml")
     end
 
     @testset "checks for overrides" begin
-        full_param_set = CP.create_parameter_struct(joinpath(@__DIR__,"toml","override_typos.toml"),Float64, dict_type="name")
+        full_param_set = CP.create_parameter_struct(Float64;
+            override_file=joinpath(@__DIR__,"toml","override_typos.toml"),
+            dict_type="name",
+        )
         mod = "test_module_name"
         CP.get_parameter_values!(full_param_set, "light_speed", mod)
 

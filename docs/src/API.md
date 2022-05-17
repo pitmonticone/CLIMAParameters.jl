@@ -14,8 +14,8 @@ ParamDict
 
 ### User facing functions:
 ```@docs
-create_parameter_struct(path_to_override, path_to_default)
-create_parameter_struct(path_to_override)
+create_parameter_struct(;override_file, default_file)
+create_parameter_struct(;override_file)
 create_parameter_struct()
 get_parameter_values!
 get_parameter_values

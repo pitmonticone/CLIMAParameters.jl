@@ -8,7 +8,7 @@ Parameters are stored in objects that reflect the model component construction. 
 ```julia
 import CLIMAParameters
 import Thermodynamics
-parameter_struct = CLIMAParameters.create_parameter_struct(dict_type="alias") 
+parameter_struct = CLIMAParameters.create_parameter_struct(;dict_type="alias") 
 thermo_params = Thermodynamics.ThermodynamicsParameters(parameter_struct)
 ```
 
@@ -65,7 +65,7 @@ import Thermodynamics
 import CloudMicrophysics
 
 #load defaults
-parameter_struct = CLIMAParameters.create_parameter_struct(dict_type="alias")
+parameter_struct = CLIMAParameters.create_parameter_struct(;dict_type="alias")
 
 #build the low level parameter set
 param_therm = Thermodynamics.ThermodynamicsParameters(parameter_struct)

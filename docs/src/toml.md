@@ -67,8 +67,8 @@ Here, the `value` field has been overwritten by the experiment value
 ### Loading from file
 We provide the following methods to load parameters from file
 ```julia
-create_parameter_struct(override_filepath, default_filepath; dict_type="alias",value_type=Float64)
-create_parameter_struct(override_filepath ; dict_type="alias",value_type=Float64) 
+create_parameter_struct(;override_filepath, default_filepath; dict_type="alias",value_type=Float64)
+create_parameter_struct(;override_filepath ; dict_type="alias",value_type=Float64) 
 create_parameter_struct(; dict_type="name",value_type=Float64) 
 ```
 - The `dict_type = "name"` or `"alias"` determines the method of lookup of parameters (by `name` or by `alias` attributes).
@@ -78,7 +78,7 @@ Typical usage involves passing the local parameter file
 ```julia
 import CLIMAParameters
 local_exp_file = joinpath(@__DIR__,"local_exp_parameters.toml")
-parameter_struct = CLIMAParameters.create_parameter_struct(local_exp_file) 
+parameter_struct = CLIMAParameters.create_parameter_struct(;local_exp_file) 
 ```
 If no file is passed it will use only the defaults from `ClimaParameters.jl` (causing errors if required parameters are not within this list).
 

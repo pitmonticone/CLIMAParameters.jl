@@ -43,11 +43,10 @@ end
 
 @testset "Example use case: parameter box" begin
 
-    # [1.] read from file 
+    # [1.] read from file
     toml_file = joinpath(@__DIR__, "toml", "parambox.toml")
-    param_struct = CP.create_parameter_struct(
-        toml_file,
-        Float64,
+    param_struct = CP.create_parameter_struct(Float64;
+        override_file=toml_file,
         dict_type="alias",
     )
 
@@ -57,18 +56,18 @@ end
     # [3.] log & checks(with warning)
     mktempdir(@__DIR__) do path
         logfilepath = joinpath(path,"logfilepath.toml")
-        @test_logs (:warn,) CP.log_parameter_information(param_struct,logfilepath)        
+        @test_logs (:warn,) CP.log_parameter_information(param_struct,logfilepath)
     end
-    
+
     # [4.] use
     # from default
     @test param_set.molmass_dryair ≈ 0.02897
     # overridden default
     @test param_set.gas_constant ≈ 4.0
     # derived in constructor
-    @test param_set.R_d ≈ param_set.gas_constant / param_set.molmass_dryair 
+    @test param_set.R_d ≈ param_set.gas_constant / param_set.molmass_dryair
     # from toml
     @test param_set.new_parameter ≈ 19.99
-    
+
 end
 rm(logfilepath1; force = true)
