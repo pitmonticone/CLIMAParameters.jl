@@ -34,7 +34,7 @@ module_names = [
 ]
 
 CP_parameters = Dict(mod => String.(names(mod)) for mod in module_names)
-logfilepath1 = joinpath(@__DIR__, "log_file_test_1.toml")
+logfilepath1 = joinpath(@__DIR__, "toml", "log_file_test_1.toml")
 
 @testset "parameter file interface tests" begin
 
@@ -108,7 +108,7 @@ logfilepath1 = joinpath(@__DIR__, "log_file_test_1.toml")
         # default parameter file ("parameters.toml") and additional (array valued)
         # parameters ("array_parameters.toml").
 #        path_to_array_params = joinpath(splitpath(pathof(CP))[1:end-2]...,"test/array_parameters.toml")
-        path_to_array_params = joinpath(@__DIR__,"array_parameters.toml")
+        path_to_array_params = joinpath(@__DIR__,"toml","array_parameters.toml")
         # parameter struct of type Float64 (default)
         param_set = CP.create_parameter_struct(path_to_array_params,
                                                dict_type="name")
@@ -174,7 +174,7 @@ logfilepath1 = joinpath(@__DIR__, "log_file_test_1.toml")
     end
 
     @testset "checks for overrides" begin
-        full_param_set = CP.create_parameter_struct(joinpath(@__DIR__,"override_typos.toml"), dict_type="name")
+        full_param_set = CP.create_parameter_struct(joinpath(@__DIR__,"toml","override_typos.toml"), dict_type="name")
         mod = "test_module_name"
         CP.get_parameter_values!(full_param_set, "light_speed", mod)
 

@@ -1,0 +1,582 @@
+[snow_mass_size_relation_coefficient_delm]
+value = 0
+type = "float"
+alias = "Δm_sno"
+
+[coefficient_c_h_grachev]
+value = 3.0
+type = "float"
+alias = "c_h_Grachev"
+
+[orbit_eccentricity_at_epoch]
+value = 0.016708634
+type = "float"
+alias = "eccentricity_epoch"
+
+[prandtl_number_0_businger]
+value = 0.74
+type = "float"
+alias = "Pr_0_Businger"
+
+[array_parameter_2]
+used_in = ["Test"]
+value = [0.0, 1.0, 1.0, 2.0, 3.0, 5.0, 8.0, 13.0, 21.0, 34.0]
+type = "float"
+alias = "arr_2"
+
+[coefficient_a_m_gryanik]
+value = 5.0
+type = "float"
+alias = "a_m_Gryanik"
+
+[temperature_triple_point]
+value = 273.16
+type = "float"
+alias = "T_triple"
+
+[length_orbit_semi_major]
+value = 149597870000
+type = "float"
+description = "derived: 1 * [astronomical_unit]"
+alias = "orbit_semimaj"
+
+[snow_cross_section_size_relation_coefficient_dela]
+value = 0
+type = "float"
+alias = "Δa_sno"
+
+[cloud_ice_specific_humidity_autoconversion_threshold]
+value = 1.0e-6
+type = "float"
+alias = "q_ice_threshold"
+
+[isobaric_specific_heat_ice]
+value = 2100
+type = "float"
+alias = "cp_i"
+
+[rain_cross_section_size_relation_coefficient_dela]
+value = 0
+type = "float"
+alias = "Δa_rai"
+
+[latent_heat_sublimation_at_reference]
+value = 2834400
+type = "float"
+alias = "LH_s0"
+
+[day]
+value = 86400
+type = "float"
+alias = "day"
+
+[isobaric_specific_heat_vapor]
+value = 1859
+type = "float"
+alias = "cp_v"
+
+[snow_terminal_velocity_size_relation_coefficient_delv]
+value = 0
+type = "float"
+alias = "Δv_sno"
+
+[molar_mass_water]
+value = 0.01801528
+type = "float"
+alias = "molmass_water"
+
+[diffusivity_of_water_vapor]
+value = 2.26e-5
+type = "float"
+alias = "D_vapor"
+
+[condensation_evaporation_timescale]
+value = 10
+type = "float"
+alias = "τ_cond_evap"
+
+[snow_cross_section_size_relation_coefficient]
+value = 2
+type = "float"
+alias = "ae_sno"
+
+[snow_terminal_velocity_size_relation_coefficient_chiv]
+value = 1
+type = "float"
+alias = "χv_sno"
+
+[temperature_saturation_adjustment_min]
+value = 150
+type = "float"
+alias = "T_min"
+
+[coefficient_a_h_grachev]
+value = 5.0
+type = "float"
+alias = "a_h_Grachev"
+
+[surface_tension_water]
+value = 0.072
+type = "float"
+alias = "surface_tension_coeff"
+
+[bolztmann_constant]
+value = 1.381e-23
+type = "float"
+alias = "k_Boltzmann"
+
+[thermal_conductivity_of_air]
+value = 0.024
+type = "float"
+alias = "K_therm"
+
+[cloud_liquid_rain_collision_efficiency]
+value = 0.8
+type = "float"
+alias = "E_liq_rai"
+
+[coefficient_b_h_gryanik]
+value = 0.4
+type = "float"
+alias = "b_h_Gryanik"
+
+[longitude_perihelion_at_epoch]
+value = 4.938188299449
+type = "float"
+description = "(282.937348 degrees) in radians"
+alias = "lon_perihelion_epoch"
+
+[stefan_boltzmann_constant]
+value = 5.67e-8
+type = "float"
+alias = "Stefan"
+
+[prandtl_number_0_grachev]
+value = 0.98
+type = "float"
+alias = "Pr_0_Grachev"
+
+[cloud_liquid_snow_collision_efficiency]
+value = 0.1
+type = "float"
+alias = "E_liq_sno"
+
+[entropy_water_vapor]
+value = 10513.6
+type = "float"
+alias = "entropy_water_vapor"
+
+[temperature_min_at_reference]
+value = 220
+type = "float"
+alias = "T_min_ref"
+
+[entropy_dry_air]
+value = 6864.8
+type = "float"
+alias = "entropy_dry_air"
+
+[light_speed]
+used_in = ["Test"]
+value = 299792458
+type = "float"
+alias = "light_speed"
+
+[planck_constant]
+value = 6.626e-34
+type = "float"
+alias = "h_Planck"
+
+[coefficient_a_m_businger]
+value = 4.7
+type = "float"
+alias = "a_m_Businger"
+
+[density_ice_water]
+value = 916.7
+type = "float"
+alias = "ρ_cloud_ice"
+
+[prandtl_number_0_gryanik]
+value = 0.98
+type = "float"
+alias = "Pr_0_Gryanik"
+
+[coefficient_b_m_gryanik]
+value = 0.3
+type = "float"
+alias = "b_m_Gryanik"
+
+[temperature_saturation_adjustment_max]
+value = 1000
+type = "float"
+alias = "T_max"
+
+[snow_flake_size_distribution_coefficient_mu]
+value = 4.36e9
+type = "float"
+alias = "μ_sno"
+
+[rain_autoconversion_timescale]
+value = 1000
+type = "float"
+alias = "τ_acnv_rai"
+
+[cloud_ice_mass_size_relation_coefficient_chim]
+value = 1
+type = "float"
+alias = "χm_ice"
+
+[snow_flake_size_distribution_coefficient_nu]
+value = 0.63
+type = "float"
+alias = "ν_sno"
+
+[cloud_ice_snow_collision_efficiency]
+value = 0.1
+type = "float"
+alias = "E_ice_sno"
+
+[mean_anomalistic_at_epoch]
+value = 6.24006014121
+type = "float"
+description = "(357.52911 degrees) in radians"
+alias = "mean_anom_epoch"
+
+[cloud_ice_mass_size_relation_coefficient_me]
+value = 3
+type = "float"
+alias = "me_ice"
+
+[rain_drop_size_distribution_coefficient_n0]
+value = 1.6e7
+type = "float"
+alias = "n0_rai"
+
+[rain_cross_section_size_relation_coefficient_chia]
+value = 1
+type = "float"
+alias = "χa_rai"
+
+[snow_terminal_velocity_size_relation_coefficient]
+value = 0.25
+type = "float"
+alias = "ve_sno"
+
+[coefficient_a_h_gryanik]
+value = 5.0
+type = "float"
+alias = "a_h_Gryanik"
+
+[snow_mass_size_relation_coefficient_chim]
+value = 1
+type = "float"
+alias = "χm_sno"
+
+[snow_autoconversion_timescale]
+value = 100
+type = "float"
+alias = "τ_acnv_sno"
+
+[rain_mass_size_relation_coefficient_delm]
+value = 0
+type = "float"
+alias = "Δm_rai"
+
+[rain_snow_collision_efficiency]
+value = 1
+type = "float"
+alias = "E_rai_sno"
+
+[gas_constant]
+value = 8.3144598
+type = "float"
+alias = "gas_constant"
+
+[rain_mass_size_relation_coefficient_me]
+value = 3
+type = "float"
+alias = "me_rai"
+
+[orbit_obliquity_at_epoch]
+value = 0.408979125113246
+type = "float"
+description = "(23.432777778 degrees) in radians"
+alias = "obliq_epoch"
+
+[snow_ventillation_coefficient_b]
+value = 0.44
+type = "float"
+alias = "b_vent_sno"
+
+[longitude_perihelion]
+value = 4.938188299449
+type = "float"
+description = "(282.937348 degrees) in radians"
+alias = "lon_perihelion"
+
+[coefficient_b_m_grachev]
+value = 0.7692307692307693
+type = "float"
+description = "derived [coefficient_a_m_grachev] / 6.5"
+alias = "b_m_Grachev"
+
+[temperature_mean_at_reference]
+value = 290
+type = "float"
+alias = "T_surf_ref"
+
+[array_parameter_1]
+used_in = ["Test"]
+value = [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
+type = "float"
+alias = "arr_1"
+
+[rain_drop_length_scale]
+value = 0.001
+type = "float"
+alias = "r0_rai"
+
+[temperature_homogenous_nucleation]
+value = 233
+type = "float"
+alias = "T_icenuc"
+
+[ice_snow_threshold_radius]
+value = 6.25e-5
+type = "float"
+alias = "r_ice_snow"
+
+[density_ocean_reference]
+value = 1035
+type = "float"
+alias = "ρ_ocean"
+
+[entropy_reference_temperature]
+value = 298.15
+type = "float"
+alias = "entropy_reference_temperature"
+
+[angular_velocity_planet_rotation]
+value = 7.2921159e-5
+type = "float"
+alias = "Omega"
+
+[molar_mass_dry_air]
+value = 0.02897
+type = "float"
+alias = "molmass_dryair"
+
+[rain_terminal_velocity_size_relation_coefficient_ve]
+value = 0.5
+type = "float"
+alias = "ve_rai"
+
+[planet_radius]
+value = 6371000
+type = "float"
+alias = "planet_radius"
+
+[cloud_ice_size_distribution_coefficient_n0]
+value = 2.0e7
+type = "float"
+alias = "n0_ice"
+
+[adiabatic_exponent_dry_air]
+value = 0.28571428571
+type = "float"
+description = "(2/7)"
+alias = "kappa_d"
+
+[epoch_time]
+value = 211813488000
+type = "float"
+description = "derived: 2451545.0 * [day]"
+alias = "epoch"
+
+[snow_flake_length_scale]
+value = 0.001
+type = "float"
+alias = "r0_sno"
+
+[specific_humidity_precipitation_threshold]
+value = 0.005
+type = "float"
+alias = "qc_0"
+
+[rain_terminal_velocity_size_relation_coefficient_chiv]
+value = 1
+type = "float"
+alias = "χv_rai"
+
+[supersaturation_precipitation_threshold]
+value = 0.02
+type = "float"
+alias = "S_0"
+
+[snow_ventillation_coefficient_a]
+value = 0.65
+type = "float"
+alias = "a_vent_sno"
+
+[density_liquid_water]
+value = 1000
+type = "float"
+alias = "ρ_cloud_liq"
+
+[precipitation_timescale]
+value = 1000
+type = "float"
+alias = "τ_precip"
+
+[cloud_liquid_water_specific_humidity_autoconversion_threshold]
+value = 0.0005
+type = "float"
+alias = "q_liq_threshold"
+
+[coefficient_b_h_grachev]
+value = 5.0
+type = "float"
+alias = "b_h_Grachev"
+
+[isobaric_specific_heat_liquid]
+value = 4181
+type = "float"
+alias = "cp_l"
+
+[snow_cross_section_size_relation_coefficient_chia]
+value = 1
+type = "float"
+alias = "χa_sno"
+
+[snow_mass_size_relation_coefficient_me]
+value = 2
+type = "float"
+alias = "me_sno"
+
+[latent_heat_vaporization_at_reference]
+value = 2500800
+type = "float"
+alias = "LH_v0"
+
+[coefficient_a_m_grachev]
+value = 5.0
+type = "float"
+alias = "a_m_Grachev"
+
+[specific_heat_ocean]
+value = 3989.25
+type = "float"
+alias = "cp_ocean"
+
+[gravitational_acceleration]
+used_in = ["Test"]
+value = [9.81, 10.0]
+type = "float"
+alias = "grav"
+
+[sublimation_deposition_timescale]
+value = 10
+type = "float"
+alias = "τ_sub_dep"
+
+[rain_terminal_velocity_size_relation_coefficient_delv]
+value = 0
+type = "float"
+alias = "Δv_rai"
+
+[rain_cross_section_size_relation_coefficient_ae]
+value = 2
+type = "float"
+alias = "ae_rai"
+
+[kinematic_viscosity_of_air]
+value = 1.6e-5
+type = "float"
+alias = "ν_air"
+
+[coefficient_a_h_businger]
+value = 4.7
+type = "float"
+alias = "a_h_Businger"
+
+[rain_drop_drag_coefficient]
+value = 0.55
+type = "float"
+alias = "C_drag"
+
+[avogadro_constant]
+value = 6.02214076e23
+type = "float"
+alias = "avogad"
+
+[pressure_triple_point]
+value = 611.657
+type = "float"
+alias = "press_triple"
+
+[thermodynamics_temperature_reference]
+value = 273.16
+type = "float"
+alias = "T_0"
+
+[temperature_water_freeze]
+value = 273.15
+type = "float"
+alias = "T_freeze"
+
+[total_solar_irradiance]
+value = 1362
+type = "float"
+alias = "tot_solar_irrad"
+
+[rain_mass_size_relation_coefficient_chim]
+value = 1
+type = "float"
+alias = "χm_rai"
+
+[cloud_ice_crystals_length_scale]
+value = 1.0e-5
+type = "float"
+alias = "r0_ice"
+
+[rain_ventillation_coefficient_a]
+value = 1.5
+type = "float"
+alias = "a_vent_rai"
+
+[rain_ventillation_coefficient_b]
+value = 0.53
+type = "float"
+alias = "b_vent_rai"
+
+[cloud_ice_rain_collision_efficiency]
+value = 1
+type = "float"
+alias = "E_ice_rai"
+
+[cloud_ice_mass_size_relation_coefficient_delm]
+value = 0
+type = "float"
+alias = "Δm_ice"
+
+[von_karman_constant]
+value = 0.4
+type = "float"
+alias = "von_karman_const"
+
+[mean_sea_level_pressure]
+value = 101325
+type = "float"
+alias = "MSLP"
+
+[anomalistic_year_length]
+value = 31558464
+type = "float"
+description = "derived: 365.25 * [day]"
+alias = "year_anom"
+
+[astronomical_unit]
+value = 149597870000
+type = "float"
+alias = "astro_unit"

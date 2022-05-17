@@ -1,0 +1,59 @@
+[light_speed]
+value = 299792458
+alias = "light_speed"
+
+[planck_constant]
+value = 6.626e-34
+alias = "h_Planck"
+
+[uq_param_4]
+constraint = "[bounded(10.0, 15.0), bounded_below(-1.0)]"
+prior = "Samples([1.0 3.0 5.0 7.0; 9.0 11.0 13.0 15.0])"
+description = "uq_param_4 will be learned using CES"
+
+[avogadro_constant]
+value = 6.02214076e23
+alias = "avogad"
+
+[uq_param_3]
+constraint = "[no_constraint(), bounded_below(-1.0), bounded_above(0.4), bounded(-0.1,0.2)]"
+prior = "Parameterized(MvNormal(4, 0.1))"
+description = "uq_param_3 will be learned using CES"
+
+[uq_param_5]
+constraint = "[no_constraint(), no_constraint(), bounded_below(-2.0), bounded_above(100.0)]"
+prior = "Samples([1.0 3.0; 5.0 7.0; 9.0 11.0; 13.0 15.0])"
+description = "uq_param_5 will be learned using CES"
+
+[uq_param_6]
+constraint = "repeat([[bounded_above(9.0)]], 3)"
+prior = "repeat([Parameterized(Gamma(2.0, 1.0))], 3)"
+description = "uq_param_6 will be learned using CES"
+
+[uq_param_2]
+constraint = "bounded_below(3.0)"
+prior = "Parameterized(Gamma(5.0, 2.0))"
+description = "uq_param_2 will be learned using CES"
+
+[mean_sea_level_pressure]
+value = 101325
+alias = "MSLP"
+
+[uq_param_7]
+constraint = "repeat([no_constraint()], 3)"
+prior = "Parameterized(MvNormal(3, 2.0))"
+description = "uq_param_7 will be learned using CES"
+
+[gas_constant]
+value = 8.3144598
+alias = "gas_constant"
+
+[already_calibrated_param]
+constraint = "bounded_above(5.0)"
+prior = "fixed"
+value = "0.64"
+
+[uq_param_1]
+constraint = "no_constraint()"
+prior = "Parameterized(Normal(2.0, 1.0))"
+description = "uq_param_1 will be learned using CES"

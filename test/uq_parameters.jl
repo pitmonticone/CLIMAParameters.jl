@@ -15,7 +15,7 @@ const EKP = EnsembleKalmanProcesses
 @testset "Parse and write parameter distributions" begin
 
     # Load parameters
-    toml_path = joinpath(@__DIR__,"uq_test_parameters.toml")
+    toml_path = joinpath(@__DIR__,"toml","uq_test_parameters.toml")
     param_dict = CP.read_parameters(toml_path)
 
     # True `ParameterDistribution`s. This is what `get_parameter_distribution`
@@ -123,7 +123,7 @@ end
 @testset "Save parameter ensemble" begin
 
     # Read parameters
-    toml_path = joinpath(@__DIR__,"uq_test_parameters.toml")
+    toml_path = joinpath(@__DIR__,"toml","uq_test_parameters.toml")
     param_dict = CP.read_parameters(toml_path)
 
     # Extract the UQ parameters
