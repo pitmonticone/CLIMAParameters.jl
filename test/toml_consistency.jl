@@ -20,22 +20,6 @@ universal_constant_aliases = [
     "avogad",
 ]
 
-# CP modules list:
-module_names = [
-    # CP,
-    # CP.Planet,
-    # CP.SubgridScale,
-    # CP.Atmos.EDMF,
-    # CP.Atmos.SubgridScale,
-    # CP.Atmos.Microphysics_0M,
-    # CP.Atmos.Microphysics,
-    # CP.SurfaceFluxes.UniversalFunctions,
-]
-
-CP_parameters = Dict(mod => String.(names(mod)) for mod in module_names)
-logfilepath1 = joinpath(@__DIR__, "toml", "log_file_test_1.toml")
-
-
 @testset "load with name or alias" begin
     @test_throws AssertionError CP.create_parameter_struct(
         Float64;
@@ -44,76 +28,32 @@ logfilepath1 = joinpath(@__DIR__, "toml", "log_file_test_1.toml")
 
 end
 
+@testset "Test write / log parameters" begin
 
-@testset "TOML - CliMAParameters.jl consistency" begin
-    # tests to check parameter consistency of new toml files with existing
-    # CP defaults.
-
-
-
-    k_found = [0]
     for (k, v) in full_parameter_set #iterates over data (by alias)
-
-        for mod in module_names
-            k_pair = CP.get_parameter_values(full_parameter_set, k)
-            k_value = last(k_pair)
-            if k in CP_parameters[mod]
-                k_found[1] = 1
-                cp_k = getfield(mod, Symbol(k))
-                if !(k in universal_constant_aliases)
-                    @test (k_value ≈ cp_k(param_set_cpp))
-                else #universal parameters have no argument
-                    @test (k_value ≈ cp_k())
-                end
-                #for the logfile test later:
-                CP.get_parameter_values!(
-                    full_parameter_set,
-                    k,
-                    string(nameof(mod)),
-                )
-            end
-        end
-        if k_found[1] == 0
-            println("on trying alias: ", k)
-            @warn("did not find in any modules")
-        end
-
-        k_found[1] = 0
+        # for the logfile test later:
+        CP.get_parameter_values!(
+            full_parameter_set,
+            k,
+            "test_component", # e.g., "Thermodynamics"
+        )
     end
+    full_parameter_set_from_log = mktempdir() do path
+        logfilepath1 = joinpath(path, "log_file_test_1.toml")
+        #create a dummy log file listing where CLIMAParameter lives
+        CP.log_parameter_information(full_parameter_set, logfilepath1)
+        # CP.write_log_file(full_parameter_set, logfilepath1)
 
-    #create a dummy log file listing where CLIMAParameter lives
-    CP.write_log_file(full_parameter_set, logfilepath1)
-end
-
-@testset "Parameter logging" begin
-
-
-    #read in log file as new parameter file and rerun test.
-    full_parameter_set_from_log = CP.create_parameter_struct(
-        Float64;
-        override_file = logfilepath1,
-        dict_type = "alias",
-    )
-    k_found = [0]
-    for (k, v) in full_parameter_set_from_log #iterates over data (by alias)
-        for mod in module_names
-            k_pair = CP.get_parameter_values(full_parameter_set_from_log, k)
-            k_value = last(k_pair)
-            if k in CP_parameters[mod]
-                k_found[1] = 1
-                cp_k = getfield(mod, Symbol(k))
-                if !(k in universal_constant_aliases)
-                    @test (k_value ≈ cp_k(param_set_cpp))
-                else #universal parameters have no argument
-                    @test (k_value ≈ cp_k())
-                end
-            end
-        end
-        if k_found[1] == 0
-            println("on trying alias: ", k)
-            @warn("did not find in any modules")
-        end
-        k_found[1] = 0
+        #read in log file as new parameter file and rerun test.
+        CP.create_parameter_struct(
+            Float64;
+            override_file = logfilepath1,
+            dict_type = "alias",
+        )
+    end
+    # Make sure logging preserves parameter set values
+    for (k, v) in full_parameter_set #iterates over data (by alias)
+        @test v["value"] == full_parameter_set_from_log[k]["value"]
     end
 end
 
@@ -124,8 +64,7 @@ end
     # Create parameter structs consisting of the parameters contained in the
     # default parameter file ("parameters.toml") and additional (array valued)
     # parameters ("array_parameters.toml").
-    path_to_array_params =
-        joinpath(@__DIR__, "toml", "array_parameters.toml")
+    path_to_array_params = joinpath(@__DIR__, "toml", "array_parameters.toml")
     # parameter struct of type Float64 (default)
     param_set = CP.create_parameter_struct(
         Float64;
@@ -161,8 +100,7 @@ end
     # parameters are used.
     for i in range(1, stop = length(true_params))
 
-        param_pair =
-            CP.get_parameter_values!(param_set, param_names[i], mod)
+        param_pair = CP.get_parameter_values!(param_set, param_names[i], mod)
         param = last(param_pair)
         @test param == true_params[i]
         # Check if the parameter is of the correct type. It should have
@@ -196,10 +134,8 @@ end
     full_param_set = CP.create_parameter_struct(Float64; dict_type = "name")
     merged_param_set =
         CP.merge_override_default_values(param_set, full_param_set)
-    grav_pair = CP.get_parameter_values(
-        merged_param_set,
-        "gravitational_acceleration",
-    )
+    grav_pair =
+        CP.get_parameter_values(merged_param_set, "gravitational_acceleration")
     grav = last(grav_pair)
     @test grav == true_param_3
 end
@@ -226,5 +162,3 @@ end
         )
     end
 end
-
-rm(logfilepath1; force = true)
