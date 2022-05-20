@@ -1,22 +1,35 @@
 module CLIMAParameters
 
+using TOML
+using DocStringExtensions
+
 export AbstractParameterSet
 export AbstractEarthParameterSet
 
+export AbstractParamDict
+export ParamDict, AliasParamDict
+
+export float_type,
+    get_parameter_values!,
+    get_parameter_values,
+    write_log_file,
+    log_parameter_information,
+    create_parameter_struct
+
+"""
+    AbstractParameterSet
+
+The top-level super-type parameter set.
+"""
+abstract type AbstractParameterSet end
+
+"""
+    AbstractEarthParameterSet <: AbstractParameterSet
+
+An earth parameter set, specific to planet Earth.
+"""
+abstract type AbstractEarthParameterSet <: AbstractParameterSet end
+
 include("file_parsing.jl")
-include("types.jl")
-include("UniversalConstants.jl")
-
-# Function stubs
-include(joinpath("Planet", "Planet.jl"))
-include(joinpath("Atmos", "Atmos.jl"))
-include(joinpath("SurfaceFluxes", "SurfaceFluxes.jl"))
-include(joinpath("SubgridScale", "SubgridScale.jl"))
-
-# Define values
-include(joinpath("Planet", "planet_parameters.jl"))
-include(joinpath("Atmos", "atmos_parameters.jl"))
-include(joinpath("SurfaceFluxes", "surface_fluxes_parameters.jl"))
-include(joinpath("SubgridScale", "subgrid_scale_parameters.jl"))
 
 end # module

@@ -1,4 +1,6 @@
+module ParameterBoxes
 
+using Test
 import CLIMAParameters
 const CP = CLIMAParameters
 
@@ -57,3 +59,5 @@ end
     @test param_set.new_parameter ≈ 19.99
 
 end
+
+end # end module
